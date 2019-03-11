@@ -3,7 +3,6 @@ FROM centos:latest
 MAINTAINER SEIYA TSUKADA
 
 # package install
-
 RUN yum -y update
 RUN yum -y install gcc-c++ wget make \
 pcre pcre-devel \
@@ -13,6 +12,7 @@ RUN cd /usr/local/src \
 && wget http://nginx.org/download/nginx-1.15.9.tar.gz \
 && tar zxvf nginx-1.15.9.tar.gz
 
+# build
 RUN cd /usr/local/src/nginx-1.15.9 \
 && ./configure \
 --user=nginx \
@@ -45,6 +45,6 @@ RUN mkdir -p /var/cache/nginx \
 COPY ./html/index.html /usr/local/nginx/html/index.html
 COPY ./conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 
-EXPOSE 22
+EXPOSE 80
 
 CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
